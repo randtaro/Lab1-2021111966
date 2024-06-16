@@ -11,15 +11,15 @@ import java.util.Random;
 public class TextDigraph {
     // 主函数
     public static void main(String[] args) {
-        String fileName = "C:\\Users\\64126\\Desktop\\软件工程\\input.txt";
+        String fileName = "C:\\Users\\64126\\Desktop\\软件工程\\newinput.txt";
         String newfile = "C:\\Users\\64126\\Desktop\\软件工程\\newinput.txt";
         String fileContent = readFileToString(newfile);
         Map<String, Map<String, Integer>> directedGraph = buildDirectedGraph(fileName);
-        showDirectedGraph(directedGraph);
-        //System.out.println(queryBridgeWords("a","n", directedGraph));
-        //System.out.println(calcShortestPath("a","v",directedGraph));
+        //showDirectedGraph(directedGraph);
+        System.out.println(queryBridgeWords("New","And", directedGraph));
+        //System.out.println(calcShortestPath("And","new",directedGraph));
         //System.out.println(calcShortestPath("","",directedGraph));
-        //showDirectedGraph(calcShortestPathOneWord("",directedGraph);
+        //System.out.println(calcShortestPathOneWord("my",directedGraph));
         //generateNewText(newfile,directedGraph);
         //System.out.println(generateNewText(fileContent,directedGraph));
         //System.out.println(randomWalk(directedGraph));
@@ -110,27 +110,27 @@ public class TextDigraph {
         System.out.println("运行成功，图已生成并保存在磁盘中");
     }
 
-    // 查询桥接词
+    // 查询桥接词p3
     public static String queryBridgeWords(String word1, String word2, Map<String, Map<String, Integer>> directedGraph) {
-        word1 = word1.toLowerCase();
-        word2 = word2.toLowerCase();
+        String word1n= word1.toLowerCase();
+        String word2n = word2.toLowerCase();
 
         // 输入的word1或word2如果不在图中出现，则输出“No word1 or word2 in the graph!”
-        if (!directedGraph.containsKey(word1) && !directedGraph.containsKey(word2)) {
+        if (!directedGraph.containsKey(word1n) && !directedGraph.containsKey(word2n)) {
             String result = String.format("No \"%s\" and \"%s\" in the graph!", word1, word2);
             return result;
-        } else if (!directedGraph.containsKey(word1)) {
+        } else if (!directedGraph.containsKey(word1n)) {
             String result = String.format("No \"%s\" in the graph!", word1);
             return result;
-        } else if (!directedGraph.containsKey(word2)) {
+        } else if (!directedGraph.containsKey(word2n)) {
             String result = String.format("No \"%s\" in the graph!", word2);
             return result;
         }
 
         // 开始查询桥接词
         List<String> bridgeWords = new ArrayList<>();
-        for (String bridgeWord : directedGraph.get(word1).keySet()) {
-            if (directedGraph.containsKey(bridgeWord) && directedGraph.get(bridgeWord).containsKey(word2)) {
+        for (String bridgeWord : directedGraph.get(word1n).keySet()) {
+            if (directedGraph.containsKey(bridgeWord) && directedGraph.get(bridgeWord).containsKey(word2n)) {
                 bridgeWords.add(bridgeWord);
             }
         }
@@ -143,6 +143,7 @@ public class TextDigraph {
             return "The bridge words from " + word1 + " to " + word2 + " are: " + String.join(", ", bridgeWords) + ".";
         }
     }
+
     public static int flagqueryBridgeWords(String word1, String word2, Map<String, Map<String, Integer>> directedGraph) {
         word1 = word1.toLowerCase();
         word2 = word2.toLowerCase();
